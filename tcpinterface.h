@@ -18,24 +18,24 @@ class TcpInterface : private rt_thread
 {
     void rt_thread_handler(void);
 
-    int port;
-
     int sockfd;
     socklen_t clilen;
     struct sockaddr_in serv_addr, cli_addr;
 
-    SystemStatus& Status;
-    SystemRequest& Request;
-
 public:
-    TcpInterface(SystemStatus& ext_Status, SystemRequest& ext_Request);
+    TcpInterface();
     ~TcpInterface();
 
-    int connectTo(char* addr);
-    void disconnect();
+    virtual void refresh();
 
+    int connectTo(char* addr, int port);
+    void disconnectFrom();
+
+    void resetRequest();
     int sendRequest();
-    void refresh();
+
+    SystemStatus Status;
+    SystemRequest_2 Request;
 
     bool connected;
 };

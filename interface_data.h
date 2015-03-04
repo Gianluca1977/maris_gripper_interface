@@ -60,10 +60,34 @@ typedef struct
     bool emerg_stop;
     bool resetSensors;
 
-    //bool fake_align[4];	//align with 64 bit grafic interface
+    bool fake_align[12];	//align with 64 bit grafic interface
 } SystemStatus;
 
 /* ****************************** */
+#define DO_NOTHING      0
+#define GO_POSITION     1
+#define GO_VELOCITY     2
+#define RECOVER         3
+#define SET_INIT_POS    4
+#define SET_FINAL_POS   5
+#define EMERGENCY       6
+#define GO_FINAL_POS    7
+#define PRESHAPE        8
+
+/* struct setting (user -> control) */
+typedef struct
+{
+    uint64_t command;
+    uint64_t preshape;
+    //uint32_t fake;
+    union
+    {
+        int64_t req_pos[NUM_MOT];
+        int64_t req_vel[NUM_MOT];
+        bool motor_selection[NUM_MOT];
+    };
+
+} SystemRequest_2;
 
 /* struct setting (user -> control) */
 

@@ -10,9 +10,11 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, public TcpInterface
 {
     Q_OBJECT
+
+    //friend class TcpInterface;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -20,8 +22,13 @@ public:
 
 private slots:
     void openConnection();
-    void counter_increase();
-    void on_MainWindow_destroyed();
+    void closeConnection();
+
+    void on_Preshape_pushButton_released();
+
+    void on_Emergency_pushButton_released();
+
+    void on_Velocity_pushButton_released();
 
 signals:
     void counter_changed();
@@ -29,10 +36,7 @@ signals:
 private:
     Ui::MainWindow *ui;
 
-    TcpInterface* myInterface;
-
-    SystemStatus Status;
-    SystemRequest Request;
+    void refresh(void);
 
     int counter;
 };
